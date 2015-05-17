@@ -1,52 +1,68 @@
----
-title: "Reproducible Research: Peer Assessment 1"
-output: 
-  html_document:
-    keep_md: true
----
+# Reproducible Research: Peer Assessment 1
 
 
 ## Loading and preprocessing the data
 
-```{r}
+
+```r
   url <- "https://d396qusza40orc.cloudfront.net/repdata data activity.zip"
   download.file(url, "activity.csv", method="curl")
   unzip("activity.zip")
   activity <- read.csv("activity.csv", colClasses=c("integer","Date","integer"))
- 
 ```
 
 ## What is the mean total number of steps taken per day?
 
-```{r}
+
+```r
   stepsperday <- aggregate(steps ~ date, activity, sum)
 
   hist(stepsperday$steps, main="Histogram of steps per day", xlab="Total steps per day")
 ```
+
+![](PA1_template_files/figure-html/unnamed-chunk-2-1.png) 
       
       
   The mean and median steps per day are given below
 
-```{r}
-    
+
+```r
   mean(stepsperday["steps"][[1]])
+```
+
+```
+## [1] 10766.19
+```
+
+```r
   median(stepsperday["steps"][[1]])
+```
+
+```
+## [1] 10765
 ```
 
 ## What is the average daily activity pattern?
 
-```{r}
+
+```r
   dailyactivity <- aggregate(steps ~ interval, activity, mean)
 
   plot( dailyactivity$interval, dailyactivity$steps, type="l", xlab="Interval", ylab="mean steps", main="Daily activity")
-
 ```
+
+![](PA1_template_files/figure-html/unnamed-chunk-4-1.png) 
 
   The maximum of the number of steps averaged over each interval is calculated below
 
-```{r}
 
+```r
   dailyactivity[order(dailyactivity[,2], decreasing=TRUE),][1,]
+```
+
+```
+##     interval    steps
+## 104      835 206.1698
 ```
 
   
@@ -54,10 +70,13 @@ output:
 
   The number of cases with missing values for steps is calculated below
 
-```{r}
 
+```r
 nrow(activity[is.na(activity$steps),])
+```
 
+```
+## [1] 2304
 ```
 
   Here is a histogram of steps per day with missing values replaced.
@@ -66,7 +85,8 @@ nrow(activity[is.na(activity$steps),])
      
          
          
-```{r}
+
+```r
   meanspi <- aggregate(steps ~ interval, activity, mean)
 
   allactivity <- activity
@@ -75,23 +95,35 @@ nrow(activity[is.na(activity$steps),])
   stepsperday <- aggregate(steps ~ date, allactivity, sum)
 
   hist(stepsperday$steps, main="Histogram of steps per day (with missing values estimated)", xlab="Total steps per day")
-
 ```
+
+![](PA1_template_files/figure-html/unnamed-chunk-7-1.png) 
      
   The mean and median are calculated below.
   As can be seen, they differ only slightly from the original mean and median
-```{r}
 
+```r
   mean(stepsperday["steps"][[1]])
+```
+
+```
+## [1] 10766.19
+```
+
+```r
   median(stepsperday["steps"][[1]])
+```
+
+```
+## [1] 10765.59
 ```
 
 ## Are there differences in activity patterns between weekdays and weekends?
 
   Here is a pair of graphs showing weekend and weekday activity patterns
   
-```{r}
 
+```r
   allactivity$wday <- ifelse(weekdays(activity$date)=="Saturday" | weekdays(activity$date)=="Sunday", "Weekend", "Weekday")
   allactivity$wday <-  as.factor(allactivity$wday)
 
@@ -106,8 +138,9 @@ nrow(activity[is.na(activity$steps),])
   library(lattice)
 
   xyplot(wkdata$steps ~ wkdata$interval | wkdata$wday, layout=c(1,2), type="l", xlab="Interval", ylab="steps")
-
 ```
+
+![](PA1_template_files/figure-html/unnamed-chunk-9-1.png) 
 
 The graphs seem to show that at weekends there is a reduction in activity during the early morning
 and an increase through the rest of the daytime hours.
