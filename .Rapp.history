@@ -1,0 +1,16 @@
+ls
+dir
+dir()
+cd Data*
+cd DataScience
+cd "DataScience"
+setwd("DataScience")
+dir()
+setwd("Reproducible Research")
+dir()
+setwd("RepData_PeerAssessment1")
+ls()
+dir()
+knit2html("PA1_template.Rmd")
+library("knitr")
+knit2html("PA1_template.Rmd")

@@ -9,10 +9,7 @@ output:
 ## Loading and preprocessing the data
 
 ```{r}
-  url <- "https://d396qusza40orc.cloudfront.net/repdata data activity.zip"
-  download.file(url, "activity.csv", method="curl")
-  unzip("activity.zip")
-  activity <- read.csv("activity.csv", colClasses=c("integer","Date","integer"))
+ activity <- read.csv("activity.csv", colClasses=c("integer","Date","integer"))
  
 ```
 

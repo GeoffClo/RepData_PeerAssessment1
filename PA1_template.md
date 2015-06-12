@@ -1,14 +1,16 @@
-# Reproducible Research: Peer Assessment 1
+---
+title: "Reproducible Research: Peer Assessment 1"
+output: 
+  html_document:
+    keep_md: true
+---
 
 
 ## Loading and preprocessing the data
 
 
 ```r
-  url <- "https://d396qusza40orc.cloudfront.net/repdata data activity.zip"
-  download.file(url, "activity.csv", method="curl")
-  unzip("activity.zip")
-  activity <- read.csv("activity.csv", colClasses=c("integer","Date","integer"))
+ activity <- read.csv("activity.csv", colClasses=c("integer","Date","integer"))
 ```
 
 ## What is the mean total number of steps taken per day?
@@ -20,7 +22,7 @@
   hist(stepsperday$steps, main="Histogram of steps per day", xlab="Total steps per day")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-2-1.png) 
+![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2-1.png) 
       
       
   The mean and median steps per day are given below
@@ -51,7 +53,7 @@
   plot( dailyactivity$interval, dailyactivity$steps, type="l", xlab="Interval", ylab="mean steps", main="Daily activity")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-4-1.png) 
+![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4-1.png) 
 
   The maximum of the number of steps averaged over each interval is calculated below
 
@@ -97,7 +99,7 @@ nrow(activity[is.na(activity$steps),])
   hist(stepsperday$steps, main="Histogram of steps per day (with missing values estimated)", xlab="Total steps per day")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-7-1.png) 
+![plot of chunk unnamed-chunk-7](figure/unnamed-chunk-7-1.png) 
      
   The mean and median are calculated below.
   As can be seen, they differ only slightly from the original mean and median
@@ -140,7 +142,7 @@ nrow(activity[is.na(activity$steps),])
   xyplot(wkdata$steps ~ wkdata$interval | wkdata$wday, layout=c(1,2), type="l", xlab="Interval", ylab="steps")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-9-1.png) 
+![plot of chunk unnamed-chunk-9](figure/unnamed-chunk-9-1.png) 
 
 The graphs seem to show that at weekends there is a reduction in activity during the early morning
 and an increase through the rest of the daytime hours.
